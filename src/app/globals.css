@@ -7,7 +7,7 @@
 }
 
 .cart-badge {
-  @apply absolute font-bold text-orange-600 ml-8 mt-0 text-center w-4;
+  @apply absolute font-bold text-orange-600 ml-4 mt-1 text-center w-4;
 }
 
 .primary-button {

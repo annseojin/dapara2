@@ -44,6 +44,14 @@ const cartSlice = createSlice({
 
       Cookies.set('cart', JSON.stringify(state))
     },
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload
+      Cookies.set('cart', JSON.stringify(state))
+    },
+    savePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload
+      Cookies.set('cart', JSON.stringify(state))
+    },
 
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter((X) => X.id !== action.payload)
@@ -66,6 +74,7 @@ const cartSlice = createSlice({
   },
 })
 
-export const { addToCart, removeFromCart, hideLoading } = cartSlice.actions
+export const { addToCart, removeFromCart, hideLoading, saveShippingAddress, savePaymentMethod } =
+  cartSlice.actions
 
 export default cartSlice.reducer
