@@ -9,9 +9,11 @@ export default function CartSidebar() {
   const { loading, cartItems, itemsPrice } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
   const pathname = usePathname()
+
   const addToCartHandler = async (product, qty) => {
     dispatch(addToCart({ ...product, qty }))
   }
+
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
@@ -23,7 +25,7 @@ export default function CartSidebar() {
           ? ''
           : cartItems.length > 0 &&
             (pathname === '/' || pathname.indexOf('/product/') >= 0)
-          ? ' fixed top-0 right-0 w-32 h-full shadow-lg border-l border-l-gray-700 overflow-scroll'
+          ? 'fixed top-0 right-0 w-32 h-full shadow-lg border-l border-l-gray-700 overflow-scroll'
           : 'hidden'
       }
     >
@@ -34,7 +36,7 @@ export default function CartSidebar() {
       ) : (
         <>
           <div className="p-2 flex flex-col items-center border-b border-b-gray-600">
-            <div>Subtotal</div>
+            <div className="font-bold text-xl text-blue-800">Subtotal</div>
             <div className="font-bold text-orange-700">${itemsPrice}</div>
             <Link
               href="/cart"
@@ -51,24 +53,29 @@ export default function CartSidebar() {
             >
               <Link href={`/product/${item.id}`} className="flex items-center">
                 <Image
-                  scr={item.image}
+                  src={item.image}
                   alt={item.name}
                   width={50}
                   height={50}
                   className="p-1"
-                ></Image>
+                />
               </Link>
 
               <select
-                value={qty}
-                onChange={(e) => setQty(Number(e.target.value))}
+                value={item.qty}
+                onChange={(e) => addToCartHandler(item, Number(e.target.value))}
               >
-                {[...Array(product.countlnStock).key()].map((x) => (
-                  <option key={x + 1} value={x + 1}></option>
+                {[...Array(item.countInStock).keys()].map((x) => (
+                  <option key={x + 1} value={x + 1}>
+                    {x + 1}
+                  </option>
                 ))}
               </select>
 
-              <button className="default-button mt-2 onClick={() => removeFromCartHandler(item.id)}">
+              <button
+                className="default-button mt-2"
+                onClick={() => removeFromCartHandler(item.id)}
+              >
                 Delete
               </button>
             </div>

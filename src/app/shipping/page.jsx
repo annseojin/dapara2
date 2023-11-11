@@ -1,6 +1,7 @@
-'Use client'
+'use client'
 
 import CheckoutWizard from '@/components/CheckoutWizard'
+import { saveShippingAddress } from '@/redux/slices/cartSlice'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -15,14 +16,14 @@ export default function ShippingAddressPage() {
   } = useForm()
   const router = useRouter()
   const dispatch = useDispatch()
-  const { ShippingAddressPage } = useSelector((state) => state.cart)
+  const { shippingAddress } = useSelector((state) => state.cart)
 
   useEffect(() => {
     setValue('fullName', shippingAddress.fullName)
     setValue('address', shippingAddress.address)
     setValue('city', shippingAddress.city)
     setValue('postalCode', shippingAddress.postalCode)
-    setValue('country', shippingAddress, country)
+    setValue('country', shippingAddress.country)
   }, [setValue, shippingAddress])
 
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
@@ -36,11 +37,12 @@ export default function ShippingAddressPage() {
   return (
     <div>
       <CheckoutWizard activeStep={1} />
+
       <form
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Shipping Address</h1>
+        <h1 className="mb-4 text-xl font-bold">Shipping Address</h1>
 
         <div className="mb-4">
           <label htmlFor="fullName">Full Name</label>
@@ -49,22 +51,27 @@ export default function ShippingAddressPage() {
             className="w-full"
             id="fullName"
             autoFocus
-            {...register('fullName', { required: 'Please enter full name' })}
+            {...register('fullName', {
+              required: 'Please enter full name',
+            })}
           />
           {errors.fullName && (
             <div className="text-red-500">{errors.fullName.message}</div>
           )}
         </div>
+
         <div className="mb-4">
           <label htmlFor="address">Address</label>
           <input
+            type="text"
             className="w-full"
             id="address"
+            autoFocus
             {...register('address', {
               required: 'Please enter address',
               minLength: {
-                value: 3,
-                message: 'Address is more than 2 chars',
+                value: 5,
+                message: 'Address is more than 5 chars',
               },
             })}
           />
@@ -72,47 +79,59 @@ export default function ShippingAddressPage() {
             <div className="text-red-500">{errors.address.message}</div>
           )}
         </div>
+
         <div className="mb-4">
           <label htmlFor="city">City</label>
           <input
+            type="text"
             className="w-full"
             id="city"
+            autoFocus
             {...register('city', {
               required: 'Please enter city',
             })}
           />
           {errors.city && (
-            <div className="text-red-500 ">{errors.city.message}</div>
+            <div className="text-red-500">{errors.city.message}</div>
           )}
         </div>
+
         <div className="mb-4">
           <label htmlFor="postalCode">Postal Code</label>
           <input
+            type="text"
             className="w-full"
             id="postalCode"
+            autoFocus
             {...register('postalCode', {
               required: 'Please enter postal code',
             })}
           />
           {errors.postalCode && (
-            <div className="text-red-500 ">{errors.postalCode.message}</div>
+            <div className="text-red-500">{errors.postalCode.message}</div>
           )}
         </div>
+
         <div className="mb-4">
           <label htmlFor="country">Country</label>
           <input
+            type="text"
             className="w-full"
             id="country"
+            autoFocus
             {...register('country', {
               required: 'Please enter country',
             })}
           />
           {errors.country && (
-            <div className="text-red-500 ">{errors.country.message}</div>
+            <div className="text-red-500">{errors.country.message}</div>
           )}
         </div>
+
         <div className="mb-4 flex justify-between">
-          <button className="primary-button">Next</button>
+          <button type="submit" className="primary-button">
+            Next
+          </button>
         </div>
       </form>
     </div>

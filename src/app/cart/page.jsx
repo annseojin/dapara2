@@ -4,7 +4,6 @@ import { addToCart, removeFromCart } from '@/redux/slices/cartSlice'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function CartPage() {
@@ -19,7 +18,6 @@ export default function CartPage() {
   const addToCartHandler = async (product, qty) => {
     dispatch(addToCart({ ...product, qty }))
   }
-
   return (
     <div>
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
@@ -29,7 +27,7 @@ export default function CartPage() {
       ) : cartItems.length === 0 ? (
         <div>
           Cart is empty.{' '}
-          <Link href="/" className="text-blue-500">
+          <Link className="text-blue-500" href="/">
             Go shopping
           </Link>
         </div>

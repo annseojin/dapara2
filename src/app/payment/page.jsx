@@ -1,4 +1,5 @@
 'use client'
+
 import CheckoutWizard from '@/components/CheckoutWizard'
 import { savePaymentMethod } from '@/redux/slices/cartSlice'
 import { useRouter } from 'next/navigation'
@@ -11,8 +12,8 @@ export default function PaymentPage() {
     'Paypal',
     'Stripe',
     'CashOnDelivery',
-    'Kakaopay',
-    'Naverpay',
+    'KakaoPay',
+    'NaverPay',
   ]
   const {
     handleSubmit,
@@ -20,8 +21,8 @@ export default function PaymentPage() {
     formState: { errors },
     setValue,
   } = useForm()
-  const router = useRouter
-  const dispatch = useDispatch
+  const router = useRouter()
+  const dispatch = useDispatch()
   const { shippingAddress, paymentMethod } = useSelector((state) => state.cart)
 
   useEffect(() => {
@@ -58,25 +59,26 @@ export default function PaymentPage() {
                 required: 'Please select payment method',
               })}
             />
-
             <label className="p-2" htmlFor={payment}>
               {payment}
             </label>
           </div>
         ))}
-
         {errors.paymentMethod && (
           <div className="text-red-500">{errors.paymentMethod.message}</div>
         )}
+
         <div className="mb-4 flex justify-between">
           <button
-            onClick={() => router.push('/shipping')}
             type="button"
             className="default-button"
+            onClick={() => router.push('/shipping')}
           >
             Back
           </button>
-          <button className="primary-button">Next</button>
+          <button type="submit" className="primary-button">
+            Next
+          </button>
         </div>
       </form>
     </div>

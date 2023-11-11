@@ -2,14 +2,15 @@ import React from 'react'
 
 export default function CheckoutWizard({ activeStep = 0 }) {
   const CheckoutSteps = [
-    'Use Login',
+    'User Login',
     'Shipping Address',
     'Payment Method',
     'Place Order',
   ]
+
   return (
     <div className="mb-5 flex flex-wrap">
-      {CheckouSteps.map((step, index) => (
+      {CheckoutSteps.map((step, index) => (
         <div
           key={step}
           className={`flex-1 border-b-2 text-center ${
@@ -18,6 +19,7 @@ export default function CheckoutWizard({ activeStep = 0 }) {
               : 'border-gray-400 text-gray-400'
           }`}
         >
+          {' '}
           {step}
         </div>
       ))}

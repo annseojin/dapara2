@@ -17,7 +17,7 @@ export default function Header() {
           <span className="cart-badge">
             {loading ? '' : cartItems.reduce((a, c) => a + c.qty, 0)}
           </span>
-          <Link href="/cart" className="flex justify-between itmes-end">
+          <Link href="/cart" className="flex justify-between items-end">
             <svg
               fill="#ffffff"
               viewBox="100 120 200 280"
@@ -28,8 +28,9 @@ export default function Header() {
             </svg>
             Cart
           </Link>
+
           {!loading && cartItems.length > 0 && pathname !== '/cart' && (
-            <div className="w-0 h-0 border-8 border-solid border-transparent border-r-gray-300 dark:border-r-gary-900 absolute-ml-[73px]-mt-5"></div>
+            <div className="w-0 h-0 border-8 border-solid border-transparent border-r-gray-300 dark:border-r-gray-900 absolute ml-[73px] -mt-5"></div>
           )}
         </div>
       </nav>
