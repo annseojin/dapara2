@@ -13,7 +13,6 @@ const initialState = Cookies.get('cart')
       paymentMethod: '',
     }
 
-// 12.345678 => 12.35
 const addDecimals = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2)
 }
